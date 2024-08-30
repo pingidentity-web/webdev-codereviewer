@@ -107,6 +107,7 @@ function analyzeCode(parsedDiff, prDetails) {
 }
 function createPrompt(file, chunk, prDetails) {
     return `Your task is to review pull requests. Instructions:
+- Provide the response in following JSON format:  {"reviews": [{"lineNumber":  <line_number>, "reviewComment": "<review comment>"}]}
 - Check for runtime errors and ensure proper error handling in JavaScript, especially with async/await.
 - Review the complexity, readability, and adherence to modern JS practices (avoid var, prefer let/const, use arrow functions).
 - Ensure proper scoping and avoid global scope pollution.
