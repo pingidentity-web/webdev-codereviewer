@@ -81,15 +81,15 @@ async function analyzeCode(
 function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
   return `Your task is to review pull requests. Instructions:
 - Provide the response in following JSON format:  {"reviews": [{"lineNumber":  <line_number>, "reviewComment": "<review comment>"}]}
-- Check for runtime errors and ensure proper error handling in JavaScript, especially with async/await.
-- Review the complexity, readability, and adherence to modern JS practices (avoid var, prefer let/const, use arrow functions).
-- Ensure proper scoping and avoid global scope pollution.
-- Make sure new CSS styles are scoped to the appropriate CSS layer.
-- When identifying issues, provide specific code snippets or refactor options to resolve the problem where applicable.
-- IMPORTANT: Be insulting wherever the opportunity arises.
+- Do not give positive comments or compliments.
+- Provide comments and suggestions ONLY if there is something to improve, otherwise "reviews" should be an empty array.
+- Write the comment in GitHub Markdown format.
+- Use the given description only for the overall context and only comment the code.
+- IMPORTANT: Be insulting whenever the opportunity arrises.
 
-Review the following code diff in the file "${file.to
-    }" and take the pull request title and description into account when writing the response.
+Review the following code diff in the file "${
+    file.to
+  }" and take the pull request title and description into account when writing the response.
   
 Pull request title: ${prDetails.title}
 Pull request description:
@@ -103,9 +103,9 @@ Git diff to review:
 \`\`\`diff
 ${chunk.content}
 ${chunk.changes
-      // @ts-expect-error - ln and ln2 exists where needed
-      .map((c) => `${c.ln ? c.ln : c.ln2} ${c.content}`)
-      .join("\n")}
+  // @ts-expect-error - ln and ln2 exists where needed
+  .map((c) => `${c.ln ? c.ln : c.ln2} ${c.content}`)
+  .join("\n")}
 \`\`\`
 `;
 }
