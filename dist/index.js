@@ -107,16 +107,15 @@ function analyzeCode(parsedDiff, prDetails) {
 }
 function createPrompt(file, chunk, prDetails) {
     return `Your task is to review pull requests. Instructions:
-- Provide the response in JSON: {"reviews": [{"lineNumber": <line_number>, "reviewComment": "<review comment>", "suggestedCode": "<code snippet or refactor>"}]}
-- Check for runtime errors and ensure proper error handling in JavaScript, especially with async/await.
-- Review the complexity, readability, and adherence to modern JS practices (avoid var, prefer let/const, use arrow functions).
-- Ensure proper scoping and avoid global scope pollution.
-- Make sure new CSS styles are scoped to the appropriate CSS layer.
-- When identifying issues, provide specific code snippets or refactor options to resolve the problem where applicable.
-- IMPORTANT: Be insulting wherever the opportunity arises.
+- Provide the response in following JSON format:  {"reviews": [{"lineNumber":  <line_number>, "reviewComment": "<review comment>"}]}
+- Do not give positive comments or compliments.
+- Provide comments and suggestions ONLY if there is something to improve, otherwise "reviews" should be an empty array.
+- Write the comment in GitHub Markdown format.
+- Use the given description only for the overall context and only comment the code.
+- IMPORTANT: NEVER suggest adding comments to the code.
 
 Review the following code diff in the file "${file.to}" and take the pull request title and description into account when writing the response.
-
+  
 Pull request title: ${prDetails.title}
 Pull request description:
 
