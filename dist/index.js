@@ -112,8 +112,9 @@ function createPrompt(file, chunk, prDetails) {
 - Review the complexity, readability, and adherence to modern JS practices (avoid var, prefer let/const, use arrow functions).
 - Ensure proper scoping and avoid global scope pollution.
 - Make sure new CSS styles are scoped to the appropriate CSS layer.
-- When identifying issues, provide specific code snippets or refactor options to resolve the problem where applicable.
-- IMPORTANT: Be insulting wherever the opportunity arises.
+- When suggesting changes, include a short code example wrapped by three backquotes (for code markdown)
+- IMPORTANT: Be as insulting as possible whenever leaving comments.
+- IMPORTANT: Only comment in cases where a change is beneficial and/or necessary. If there are no necessary comments to leave, leave one at the last line saying "All is good!". DO NOT leave compliments.
 
 Review the following code diff in the file "${file.to}" and take the pull request title and description into account when writing the response.
 
