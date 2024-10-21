@@ -79,24 +79,57 @@ async function analyzeCode(
 }
 
 function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
-  return `Your task is to review pull requests. Instructions:
-- Provide the response in JSON: {"reviews": [{"lineNumber": <line_number>, "reviewComment": "<review comment>", "suggestedCode": "<code snippet or refactor>"}]}
-- Check for runtime errors and ensure proper error handling in JavaScript, especially with async/await.
-- Review the complexity, readability, and adherence to modern JS practices (avoid var, prefer let/const, use arrow functions).
-- Ensure proper scoping and avoid global scope pollution.
-- Make sure new CSS styles are scoped to the appropriate CSS layer.
-- When suggesting changes, include a short code example wrapped by three backquotes (for code markdown)
-- IMPORTANT: Be as insulting as possible whenever leaving comments.
-- IMPORTANT: Only comment in cases where a change is beneficial and/or necessary. If there are no necessary comments to leave, leave one at the last line saying "All is good!". DO NOT leave compliments.
+  return `Your task is to review pull requests. Instructions:  
+     
+    The code to be reviewed may be in JavaScript, Java (JSP or Servlet), or CSS/SCSS.  
 
-Review the following code diff in the file "${file.to}" and take the pull request title and description into account when writing the response.
+    Check for runtime errors and ensure proper error handling, especially with:  
+        JavaScript:  Verify correct use of async/await, Promises, and error handling mechanisms.
+        Java (JSP/Servlet):  Ensure proper exception handling and resource management (e.g., closing streams, database connections).
+        CSS/SCSS:  Look out for syntax errors and ensure styles render correctly across browsers.
+         
 
-Pull request title: ${prDetails.title}
-Pull request description:
+    Review the complexity, readability, and adherence to modern programming practices:  
+        For JavaScript: 
+            Avoid using var; prefer let or const.
+            Use arrow functions where appropriate.
+            Follow ES6+ standards and best practices.
+             
+        For Java (JSP or Servlet): 
+            Adhere to Java coding conventions (naming, formatting).
+            Use modern Java features where applicable (e.g., Streams API, try-with-resources).
+            Ensure JSP pages are clean with minimal scriptlets; prefer JSTL and Expression Language (EL).
+             
+        For CSS/SCSS: 
+            Use modular and reusable styles.
+            Utilize variables, mixins, and nesting in SCSS effectively.
+            Ensure responsiveness and accessibility best practices are followed.             
+         
+    Ensure proper scoping to avoid global scope pollution:  
+        JavaScript:  Limit the use of global variables; use modules or IIFEs if necessary.
+        Java:  Use appropriate access modifiers (private, protected, public) to encapsulate class members.
+        CSS/SCSS:  Scope styles appropriately to prevent unintended overrides.
+         
 
+    Make sure new CSS styles are scoped to the appropriate CSS layer or component to prevent conflicts.  
+
+    When suggesting changes, include a short code example wrapped in three backticks (for code markdown):  
+
+    ```
+    // Your code example here
+    ``` 
+
+    Only comment on areas where a change is beneficial or necessary. If there are no necessary comments to leave, add one at the last line saying "All is good!". Do not include compliments.  
+     
+
+Review the following code diff in the file ${file.to} and take the pull request title and description into account when writing the response.  
+
+Pull request title:  ${prDetails.title} 
+
+Pull request description:  
 ---
 ${prDetails.description}
----
+--- 
 
 Git diff to review:
 
