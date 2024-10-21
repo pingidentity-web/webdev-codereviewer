@@ -80,19 +80,6 @@ async function analyzeCode(
 
 function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
   return `Your task is to review pull requests. Instructions:  
-
-    Provide the response in JSON format:  
-    
-    {
-      "reviews": [
-        {
-          "lineNumber": <line_number>,
-          "reviewComment": "<review comment>",
-          "suggestedCode": "<code snippet or refactor>"
-        }
-      ]
-    }
-     
      
     The code to be reviewed may be in JavaScript, Java (JSP or Servlet), or CSS/SCSS.  
 
